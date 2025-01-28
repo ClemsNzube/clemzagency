@@ -1,0 +1,136 @@
+{% extends 'dashboard/main.html' %}
+{% load static %}
+{% block content %}
+
+<!-- start Property Info -->
+<div class="card">
+  <div class="card-header text-bg-primary">
+    <h5 class="mb-0 text-white">Enter the property details</h5>
+  </div>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="card-body">
+      <h5>Property Info</h5>
+      
+      <!-- Title -->
+      <div class="row pt-3">
+        <div class="col-md-12">
+          <div class="mb-3">
+            <label for="{{ form.title.id_for_label }}" class="form-label">Title</label>
+            {{ form.title }}
+            <small class="form-control-feedback">
+              Enter a title for the property.
+            </small>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Beds, Bath, Garage, Area -->
+      <div class="row">
+        <div class="col-md-3">
+          <div class="mb-3">
+            <label for="{{ form.beds.id_for_label }}" class="form-label">Beds</label>
+            {{ form.beds }}
+            <small class="form-control-feedback">
+              Number of beds in the property.
+            </small>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="mb-3">
+            <label for="{{ form.bath.id_for_label }}" class="form-label">Bath</label>
+            {{ form.bath }}
+            <small class="form-control-feedback">
+              Number of bathrooms.
+            </small>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="mb-3">
+            <label for="{{ form.garage.id_for_label }}" class="form-label">Garage</label>
+            {{ form.garage }}
+            <small class="form-control-feedback">
+              Number of garages.
+            </small>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="mb-3">
+            <label for="{{ form.area.id_for_label }}" class="form-label">Area</label>
+            {{ form.area }}
+            <small class="form-control-feedback">
+              Enter the area of the property in square meters or feet.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- House Image, House Video, Location, Price, Details -->
+      <div class="row pt-3">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="{{ form.house_image.id_for_label }}" class="form-label">House Image</label>
+            {{ form.house_image }}
+            <small class="form-control-feedback">
+              Upload an image of the property.
+            </small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="{{ form.house_video.id_for_label }}" class="form-label">House Video</label>
+            {{ form.house_video }}
+            <small class="form-control-feedback">
+              Upload a video of the property (optional).
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="{{ form.location.id_for_label }}" class="form-label">Location</label>
+            {{ form.location }}
+            <small class="form-control-feedback">
+              Enter the location of the property.
+            </small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="{{ form.price.id_for_label }}" class="form-label">Price</label>
+            {{ form.price }}
+            <small class="form-control-feedback">
+              Enter the price of the property.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mb-3">
+            <label for="{{ form.details.id_for_label }}" class="form-label">Details</label>
+            {{ form.details }}
+            <small class="form-control-feedback">
+              Enter detailed information about the property.
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <div class="card-body border-top">
+        <button type="submit" class="btn btn-success rounded-pill px-4">
+          Save
+        </button>
+        <button type="button" class="btn bg-danger-subtle text-danger rounded-pill px-4 ms-6">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- end Property Info -->
+
+{% endblock %}

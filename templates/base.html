@@ -31,12 +31,40 @@
   <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
 
   <!-- =======================================================
-  * Template Name: EstateAgency
-  * Template URL: https://bootstrapmade.com/real-estate-agency-bootstrap-template/
-  * Updated: Aug 09 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
+  * Template Name: ClemzAgency
+  * Updated: Jan 28 2025
+  * Author: ClemsNzube
   ======================================================== -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        // Handle the form submission with AJAX
+        $('#search-form').submit(function(event) {
+            event.preventDefault();  // Prevent the default form submission
+
+            // Get the values of the inputs
+            var beds = $('#beds').val();
+            var bath = $('#bath').val();
+            var area = $('#area').val();
+
+            // Send an AJAX request to the server with the form data
+            $.ajax({
+                url: "{% url 'property_list' %}",
+                type: "GET",
+                data: {
+                    'beds': beds,
+                    'bath': bath,
+                    'area': area
+                },
+                success: function(response) {
+                    // Update the properties section with the new data
+                    $('#properties-list').html(response);
+                }
+            });
+        });
+    });
+</script>
+
 </head>
 
 <body class="index-page">
@@ -52,10 +80,9 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="properties.html">Properties</a></li>
-          <li><a href="agents.html">Agents</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="{% url 'home' %}" class="active">Home</a></li>
+          <li><a href="{% url 'property' %}">Properties</a></li>
+          <li><a href="{% url 'agent_list' %}">Agents</a></li>
 
           {% comment %} <li class="dropdown"><a href="#"><span>My Account</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
@@ -75,9 +102,9 @@
                 <i class="bi bi-chevron-down" style="font-size: 16px; color: #333;"></i>
             </a>
             <ul id="dropdownMenu" style="list-style: none; margin: 0; padding: 0; display: none; position: absolute; background: #fff; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); border-radius: 4px; z-index: 100;">
-                <li><a href="login.html" style="text-decoration: none; color: #333; display: block; padding: 10px;">Login</a></li>
-                <li><a href="#" style="text-decoration: none; color: #333; display: block; padding: 10px;">Sign up</a></li>
-                <li><a href="#" style="text-decoration: none; color: #333; display: block; padding: 10px;">Lease your property</a></li>
+                <li><a href="{% url 'login' %}" style="text-decoration: none; color: #333; display: block; padding: 10px;">Login</a></li>
+                <li><a href="{% url 'signup' %}" style="text-decoration: none; color: #333; display: block; padding: 10px;">Sign up</a></li>
+                <li><a href="#" style="text-decoration: none; color: #333; display: block; padding: 10px;">Register to list</a></li>
             </ul>
         </li>
         
@@ -120,7 +147,36 @@
   {% endblock %}
 
   </main>
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript">
+      $(document).ready(function() {
+          // Handle the form submission with AJAX
+          $('#search-form').submit(function(event) {
+              event.preventDefault();  // Prevent the default form submission
+  
+              // Get the values of the inputs
+              var beds = $('#beds').val();
+              var bath = $('#bath').val();
+              var area = $('#area').val();
+  
+              // Send an AJAX request to the server with the form data
+              $.ajax({
+                  url: "{% url 'property_list' %}",
+                  type: "GET",
+                  data: {
+                      'beds': beds,
+                      'bath': bath,
+                      'area': area
+                  },
+                  success: function(response) {
+                      // Update the properties section with the new data
+                      $('#properties-list').html(response);
+                  }
+              });
+          });
+      });
+  </script>
+  
 
 
   <footer id="footer" class="footer light-background">

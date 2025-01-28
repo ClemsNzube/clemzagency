@@ -1,0 +1,50 @@
+{% extends 'dashboard/main.html' %}
+{% load static %}
+{% block content %}
+<!--  Header Start -->
+<div class="card shadow-none position-relative overflow-hidden mb-4">
+    <div class="card-body d-flex align-items-center justify-content-between p-4">
+        <h4 class="fw-semibold mb-0">Rent Successful</h4>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a class="text-muted text-decoration-none" href="{% url 'dashboard' %}">Home</a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">Rent Success</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!--  Header End -->
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card w-100 bg-success-subtle overflow-hidden shadow-none">
+            <div class="card-body py-3">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-sm-6">
+                        <h5 class="fw-semibold mb-9 fs-5">Congratulations!</h5>
+                        <p class="mb-9">
+                            You have successfully rented <strong>{{ property.title }}</strong> located in <strong>{{ property.location }}</strong>.
+                        </p>
+                        <p class="mb-9">
+                            Thank you for choosing us. Your transaction has been confirmed, and the property is now yours!
+                        </p>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="position-relative mb-n7 text-end">
+                            <img src="{% static 'assets/assets/images/backgrounds/welcome-bg2.png' %}" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-lg-12 text-center">
+        <a href="{% url 'dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

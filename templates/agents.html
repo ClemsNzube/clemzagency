@@ -9,7 +9,7 @@
           <div class="row d-flex justify-content-center text-center">
             <div class="col-lg-8">
               <h1>Agents</h1>
-              <p class="mb-0">Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.</p>
+              <p class="mb-0">With extensive market knowledge, personalized service, and a commitment to your satisfaction, the agents ensure every step of your property journey is smooth and successful. Connect with an agent today to make your real estate dreams a reality.</p>
             </div>
           </div>
         </div>
@@ -32,54 +32,33 @@
         <div class="row gy-5">
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="member">
-              <div class="pic"><img src="{% static 'assets/img/team/team-1.jpg' %}" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>Walter White</h4>
-                <span>Chief Executive Officer</span>
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter-x"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="member">
-              <div class="pic"><img src="{% static 'assets/img/team/team-2.jpg' %}" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>Sarah Jhonson</h4>
-                <span>Rent Manager</span>
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter-x"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="member">
-              <div class="pic"><img src="{% static 'assets/img/team/team-3.jpg' %}" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>William Anderson</h4>
-                <span>Sale manager<br></span>
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter-x"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
+            {% for agent in agents %}
+<div class="member">
+    <div class="pic">
+        <img src="{{ agent.get_profile_picture_url }}" class="img-fluid" alt="{{ agent.full_name }}">
+    </div><br><br>
+    <div class="member-info">
+        <h4>{{ agent.full_name }}</h4>
+        <span>Real Estate Agent</span> <!-- Or another title field if available -->
+        <div class="details">
+            {% if agent.email %}
+                <p><strong>Email:</strong> <a href="mailto:{{ agent.email }}">{{ agent.email }}</a></p>
+            {% endif %}
+            {% if agent.phone_number %}
+                <p><strong>Phone:</strong> <a href="tel:{{ agent.phone_number }}">{{ agent.phone_number }}</a></p>
+            {% endif %}
         </div>
+    </div>
+</div>
+{% empty %}
+<p>No agents found.</p>
+{% endfor %}
+
+
+        </div><!-- End Team Member -->
+
+        
+      </div>
 
       </div>
 

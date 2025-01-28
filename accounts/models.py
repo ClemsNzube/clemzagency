@@ -53,6 +53,13 @@ class CustomUser(AbstractUser):
     is_verified = models.BooleanField(default=False)
     address = models.TextField(blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
+    eth_address = models.CharField(max_length=42, blank=True, null=True)  # Ethereum address
+
+    def get_profile_picture_url(self):
+        if self.profile_picture:
+            return self.profile_picture.url
+        return '/static/assets/assets/images/profile/default.jpg'
+
 
     # Assign the custom manager
     objects = CustomUserManager()
@@ -70,4 +77,32 @@ class CustomUser(AbstractUser):
     @property
     def is_agent(self):
         return self.user_type == 'agent'
+    
+    
+class Property(models.Model):
+    agent = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='leased_properties')
+    house_image = models.ImageField(upload_to='house_images/')
+    house_video = models.FileField(upload_to='house_videos/', blank=True, null=True)
+    location = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    details = models.TextField()
+    title = models.CharField(max_length=255)  # Added Title field
+    beds = models.IntegerField()  # Added Beds field
+    bath = models.IntegerField()  # Added Bath field
+    garage = models.IntegerField()  # Added Garage field
+    area = models.DecimalField(max_digits=10, decimal_places=2)  # Added Area field (in square meters or feet)
+    date_leased = models.DateTimeField(auto_now_add=True)
+    is_rented = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f"{self.title} - {self.location} - {self.agent.first_name} {self.agent.last_name}"
+
+
+
+
+class PropertyImage(models.Model):
+    property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='house_images/')
+
+    def __str__(self):
+        return f"Image for {self.property.title}"

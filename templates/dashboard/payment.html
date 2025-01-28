@@ -1,0 +1,49 @@
+{% extends 'dashboard/main.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h2>Confirm Payment</h2>
+    <p>You are about to rent <strong>{{ property.title }}</strong> for <strong>{{ property.price }} ETH</strong>.</p>
+    <p>Please confirm the transaction in your wallet (e.g., MetaMask).</p>
+    <button id="confirmPayment" class="btn btn-primary">Confirm Payment</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
+<script>
+    if (typeof window.ethereum !== 'undefined') {
+        window.web3 = new Web3(window.ethereum);
+        console.log('MetaMask detected');
+    } else {
+        alert('MetaMask not detected. Please install it to proceed.');
+    }
+
+    document.getElementById('confirmPayment').addEventListener('click', async () => {
+        if (typeof window.ethereum !== 'undefined') {
+            try {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const userAddress = accounts[0];
+
+                const propertyPriceWei = window.web3.utils.toWei('{{ property.price }}', 'ether');
+                const transactionParameters = {
+                    from: userAddress,
+                    to: '{{ contract_address }}',
+                    value: propertyPriceWei,
+                    gas: '2000000',
+                };
+
+                const txHash = await window.ethereum.request({
+                    method: 'eth_sendTransaction',
+                    params: [transactionParameters],
+                });
+
+                console.log('Transaction sent:', txHash);
+                window.location.href = "{% url 'rent_success' %}";
+            } catch (error) {
+                console.error('Transaction error:', error.message);
+            }
+        } else {
+            alert('Please install MetaMask to proceed.');
+        }
+    });
+</script>
+{% endblock %}
